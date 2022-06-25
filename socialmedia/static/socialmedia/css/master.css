@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: white;
+  color:black;
+  overflow-y: scroll;
+  padding: 2rem 0rem;
+}
+
+.card{
+    margin-bottom: 10px;
+}
+

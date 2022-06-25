@@ -1,0 +1,50 @@
+{% extends 'groups/group_base.html' %}
+
+{% block pregroup %}
+    <div class="col-md-4 card">
+        <div class="content card-header">
+            {% if user.is_authenticated %}
+                <h2> Welcome Back!
+                    <a href="{% url 'posts:for_user' username=user.username %}">
+                        @{{ user.username }}
+                    </a>
+                </h2>
+            {% endif %}
+            <p>Welcome to the groups page!</p>
+        </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'groups:create' %}" class="btn btn-md btn-fill btn-warning">
+                <span class="glyphicon glyphicon-plus-sign"></span> Create new group!
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block group_content %}
+    <div class="col-md-8">
+        <div class="list-group card">
+            {% for group in object_list %}
+            <a class ="list-group-item" href="{% url 'groups:single' slug=group.slug %}">
+                <div class="card-header">
+                <h3 class="title list-group-item-heading"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16">
+  <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+</svg> {{ group.name|title }}</h3>
+                </div>
+                <div class="list-group-item-text container-fluid card-body">
+                    {{ group.description_html|safe }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="badge bg-secondary">{{ group.members.count }}</span>
+                            member {{ group.members.count|pluralize }}
+                        </div>
+                        <div class="col-md-4">
+                            <span class="badge bg-secondary">{{ group.posts.count }}</span>
+                            posts {{ group.posts.count|pluralize }}
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
