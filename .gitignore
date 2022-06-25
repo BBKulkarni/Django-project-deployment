@@ -1,3 +1,4 @@
 git_base/
 myvenv/
 .idea/
+__pycache__/
